@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Bug reproduction";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+</div>
+
+<div style="border: 1px solid red; margin-bottom: 20px">
+    <h3>Form with array of values (BUG)</h3>
+    <form asp-action="Index" asp-controller="Post" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="Content[0].Name" value="foo" />
+        <input type="hidden" name="Content[0].Value" value="bar" />
+        <input type="file" name="Content[0].File" />
+    
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div style="border: 1px solid blue; margin-bottom: 20px">
+    <h3>Form with array of values (Work around)</h3>
+    <form asp-action="Index" asp-controller="Post" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="Content.Index" value="0" />
+        <input type="hidden" name="Content[0].Name" value="foo" />
+        <input type="hidden" name="Content[0].Value" value="bar" />
+        <input type="file" name="Content[0].File" />
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div style="border: 1px solid blue; margin-bottom: 20px">
+    <h3>Regular form (works)</h3>
+    <form asp-action="Index2" asp-controller="Post" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="Name" value="foo" />
+        <input type="hidden" name="Value" value="bar" />
+        <input type="file" name="File" />
+        <button type="submit">Submit</button>
+    </form>
+</div>
